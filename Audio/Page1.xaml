@@ -1,0 +1,56 @@
+﻿<Page x:Class="Audio.Page1"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Audio"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Page1" >
+
+    <Grid  Width="800" Background="#176170">
+        <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth0"  x:Name="card_login" Height="100" Background="#176170" Margin="10,69,689,0" >
+            <Grid Height="100">
+            <Button Height="80" Width="80" Click="Button_Click" x:Name="btn_l" Background="#153a42" BorderBrush="#153a42"  Style="{DynamicResource MaterialDesignFloatingActionButton}">
+                <materialDesign:PackIcon x:Name="btn_l_icon" Kind="LoginVariant" Height="30" Width="30"></materialDesign:PackIcon>
+                    
+                </Button>
+                <TextBlock x:Name="text_l" Visibility="Collapsed" FontSize="23" Margin="450,-120,0,0">Авторизація</TextBlock>
+                <TextBlock x:Name="lblock_1" FontSize="18" Margin="150,-80,0,0" Visibility="Collapsed">Логін</TextBlock>
+                <TextBlock x:Name="lblock_2" FontSize="18" Margin="150, -40,0,0" Visibility="Collapsed">Пароль</TextBlock>
+               
+
+                <TextBox Visibility="Collapsed" x:Name="l_text_1"  Height="30" Width="250" Margin="0,-250,-250,0"></TextBox>
+                <PasswordBox Visibility="Collapsed" x:Name="l_text_2"  Height="30" Width="250" Margin="0,-170,-250,0"></PasswordBox>
+               
+                <Button x:Name="btn_log" Click="login" Background="#153a42" Visibility="Collapsed" Width="300" Margin="0 ,60,0,0">Вхід</Button>
+            </Grid>
+        </materialDesign:Card>
+
+        <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth0"  x:Name="card_register"  Background="#176170" Margin="689,69,10,0" >
+
+            <Grid Height="100">
+                <Button Height="85" Width="80" x:Name="btn_r" Background="#153a42" BorderBrush="#153a42"  Style="{DynamicResource MaterialDesignFloatingActionButton}" Click="btn_r_Click">
+                    <materialDesign:PackIcon x:Name="btn_r_icon" Kind="Register" Height="30" Width="30"></materialDesign:PackIcon>
+                </Button>
+                <TextBlock x:Name="text_r" Visibility="Collapsed" FontSize="23" Margin="450,-120,0,0">Реєстрація</TextBlock>
+                <TextBlock x:Name="block_1" FontSize="18" Margin="150,-80,0,0" Visibility="Collapsed">Логін</TextBlock>
+                <TextBlock x:Name="block_2" FontSize="18" Margin="150, -40,0,0" Visibility="Collapsed">Пароль</TextBlock>
+                <TextBlock x:Name="block_3" FontSize="18" Margin="150, 00,0,0" Visibility="Collapsed">Підтвердження</TextBlock>
+                
+                <TextBox Visibility="Collapsed" x:Name="r_text_1"  Height="30" Width="250" Margin="0,-250,-250,0"></TextBox>
+                <PasswordBox Visibility="Collapsed" x:Name="r_text_2"  Height="30" Width="250" Margin="0,-170,-250,0"></PasswordBox>
+                <PasswordBox Visibility="Collapsed" x:Name="r_text_3"  Height="30" Width="250" Margin="0,-90,-250,0"></PasswordBox>
+                <Button x:Name="btn_reg" Click="register" Background="#153a42" Visibility="Collapsed" Width="300" Margin="0 ,60,0,0">Додати</Button>
+            </Grid>
+        </materialDesign:Card>
+    </Grid>
+</Page>
