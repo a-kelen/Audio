@@ -232,19 +232,11 @@
     <Compile Include="Albums.xaml.cs">
       <DependentUpon>Albums.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Class1.cs" />
-    <Compile Include="Class2.cs" />
     <Compile Include="Db.cs" />
     <Compile Include="DevSong.cs" />
     <Compile Include="Favorite.cs" />
     <Compile Include="Favorites.xaml.cs">
       <DependentUpon>Favorites.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="iDevSong.cs" />
     <Compile Include="iStrategy.cs" />
@@ -351,8 +343,6 @@
     <Content Include="DB.db">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="Audio.db" />
-    <None Include="DB2.db" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
