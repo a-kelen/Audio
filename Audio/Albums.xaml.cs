@@ -112,7 +112,7 @@ namespace Audio
                 {
                     var tags = TagLib.File.Create(f);
                     string title = tags.Tag.Title;
-                    string artist = tags.Tag.FirstArtist;
+                    string artist = tags.Tag.FirstPerformer;
                     string path = f;
                     double duration = tags.Properties.Duration.TotalSeconds;
                     Song s = new Song(title, artist, path, duration, alb);
