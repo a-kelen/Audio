@@ -81,7 +81,6 @@ namespace Audio
             bitmap.BeginInit();
             bitmap.StreamSource = ms;
             bitmap.EndInit();
-            
             des_title.Text = file.Tag.Title;
             des_Artist.Text = file.Tag.Artists[0];
             des_duration.Text = file.Properties.Duration.Minutes+":"+ file.Properties.Duration.Seconds;
@@ -119,8 +118,7 @@ namespace Audio
                 indexActive = rand.Next(0, songs.Count);
                 PlayS(songs[indexActive]);
 
-            }else
-            if (indexActive < songs.Count-1)
+            }else if (indexActive < songs.Count-1)
             {
                 if(isRandom)
                 {

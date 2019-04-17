@@ -74,7 +74,7 @@ namespace Audio
             bitmap.EndInit();
 
             des_title.Text = file.Tag.Title;
-            des_Artist.Text = file.Tag.Artists[0];
+            des_Artist.Text = file.Tag.FirstPerformer;
             des_duration.Text = file.Properties.Duration.Minutes + ":" + file.Properties.Duration.Seconds;
             des_genre.Text = file.Tag.Genres[0];
             des_album.Text = file.Tag.Album;
