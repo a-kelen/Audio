@@ -1,0 +1,44 @@
+﻿<Window x:Class="Audio.MainWindow"
+        WindowStyle="None"
+        BorderBrush="Green"
+        
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Audio"
+        mc:Ignorable="d"
+        Title="MainWindow"
+        Height="450" Width="800"
+        x:Name="main">
+    <Grid  Background="#176170" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Height="30" Grid.Row="0" Panel.ZIndex="1000">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="30"></ColumnDefinition>
+                <ColumnDefinition Width="30"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBlock PreviewMouseLeftButtonDown="move" FontSize="22" VerticalAlignment="Center" Margin="10,0,0,0  " Foreground="White">Audio</TextBlock>
+            <Button Height="25" Click="full_screen" Width="25" Background="White" BorderBrush="{x:Null}" Style="{DynamicResource MaterialDesignFloatingActionButton}" Grid.Column="1">
+                <materialDesign:PackIcon Foreground="#176170" Kind="Fullscreen"></materialDesign:PackIcon>
+            </Button>
+            <Button Height="25" Click="close_window" Width="25" Background="White" BorderBrush="{x:Null}" Style="{DynamicResource MaterialDesignFloatingActionButton}" Grid.Column="2">
+                <materialDesign:PackIcon Foreground="#176170" Kind="Close"></materialDesign:PackIcon>
+            </Button>
+        </Grid>
+        <Frame Grid.Row="1" x:Name="mainframe" Margin="0 ,0,0,0" NavigationUIVisibility="Hidden"></Frame>
+        
+    </Grid>
+</Window>
