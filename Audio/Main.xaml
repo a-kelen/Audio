@@ -43,7 +43,7 @@
             <Button x:Name="menu2" materialDesign:ShadowAssist.ShadowDepth="Depth5" Margin="-200,0,0,20" Grid.Row="1" Grid.RowSpan="2"  Panel.ZIndex="1000" Background="#153c45" BorderBrush="#153c45" Style="{DynamicResource MaterialDesignFloatingActionButton}" Click="menu2_Click">
                 <materialDesign:PackIcon Kind="PlaylistPlay"></materialDesign:PackIcon>
             </Button>
-            <Button x:Name="menu3" Visibility="Hidden" materialDesign:ShadowAssist.ShadowDepth="Depth5" Margin="-200,130,0,20" Grid.Row="1" Grid.RowSpan="2"  Panel.ZIndex="1000" Background="#153c45" BorderBrush="#153c45" Style="{DynamicResource MaterialDesignFloatingActionButton}">
+            <Button x:Name="menu3" materialDesign:ShadowAssist.ShadowDepth="Depth5" Margin="-200,130,0,20" Grid.Row="1" Grid.RowSpan="2"  Panel.ZIndex="1000" Background="#153c45" BorderBrush="#153c45" Style="{DynamicResource MaterialDesignFloatingActionButton}">
                 <materialDesign:PackIcon Kind="About"></materialDesign:PackIcon>
             </Button>
         </Grid>

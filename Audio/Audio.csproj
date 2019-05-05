@@ -238,6 +238,9 @@
     <Compile Include="Mstast.xaml.cs">
       <DependentUpon>Mstast.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Rating.xaml.cs">
+      <DependentUpon>Rating.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Song.cs" />
     <Compile Include="SongArtistCompare.cs" />
     <Compile Include="SongTitleComparer.cs" />
@@ -271,6 +274,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Page1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Rating.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
