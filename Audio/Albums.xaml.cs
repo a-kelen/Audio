@@ -36,7 +36,7 @@ namespace Audio
             
         }
         ObservableCollection<Album> albums;
-        User _user = new User { id = 3};
+        User _user = new User { Id = 3};
         public delegate void _refreshAlbum(Album a);
         public event _refreshAlbum refreshAlbum;
 
@@ -49,7 +49,7 @@ namespace Audio
         {
             Button bt = (Button)sender;
             int n = (int)bt.DataContext;
-            var res = from a in albums where a.id == n select a;
+            var res = from a in albums where a.Id == n select a;
             Album alb1 = res.ToList<Album>()[0];
             refreshAlbum(alb1);
         }
@@ -77,7 +77,7 @@ namespace Audio
             if (albumPrivate.IsChecked == true) st = 0;
             if(create_abl_name.Text != "" && create_abl_name.Text.Length > 1)
             {
-                Album a = new Album(create_abl_name.Text,_user.id,st,0);
+                Album a = new Album(create_abl_name.Text,_user,st,0);
                 if (Album.find(create_abl_name.Text) == null)
                 {
                     Album.AddAlbum(a);
@@ -115,7 +115,7 @@ namespace Audio
                     string artist = tags.Tag.FirstArtist;
                     string path = f;
                     double duration = tags.Properties.Duration.TotalSeconds;
-                    Song s = new Song(title, artist, path, duration, alb.id);
+                    Song s = new Song(title, artist, path, duration, alb);
                     
                     Song.AddSong(s);
                 }
@@ -149,7 +149,7 @@ namespace Audio
         {
             if (searchBox.Text.Trim() != "" && showed_search)
             {
-                list.ItemsSource = from a in albums where a.name.ToLower().Contains(searchBox.Text.ToLower()) select a;
+                list.ItemsSource = from a in albums where a.Name.ToLower().Contains(searchBox.Text.ToLower()) select a;
             }
             else
                 list.ItemsSource = albums;

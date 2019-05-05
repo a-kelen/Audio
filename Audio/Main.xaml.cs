@@ -61,12 +61,12 @@ namespace Audio
         }
         public void refresh(Song s)
         {
-            musicTilte.Text = s.title;
-            musicArtist.Text = s.artist;
+            musicTilte.Text = s.Title;
+            musicArtist.Text = s.Artist;
             position.Minimum = 0;
-            position.Maximum = s.duration-1;
+            position.Maximum = s.Duration-1;
             position.Delay = 1;
-            var file = TagLib.File.Create(s.path);
+            var file = TagLib.File.Create(s.Path);
             TagLib.IPicture pic = file.Tag.Pictures[0];
             MemoryStream ms = new MemoryStream(pic.Data.Data);
             ms.Seek(0, SeekOrigin.Begin);

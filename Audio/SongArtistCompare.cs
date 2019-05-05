@@ -10,7 +10,7 @@ namespace Audio
     {
         public int Compare(Song s1, Song s2)
         {
-            return s1.artist.CompareTo(s2.artist);
+            return s1.Artist.CompareTo(s2.Artist);
         }
     }
 

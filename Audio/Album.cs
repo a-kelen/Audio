@@ -7,21 +7,25 @@ using System.Configuration;
 using System.Data;
 using System.Data.SQLite;
 using Dapper;
+using System.ComponentModel.DataAnnotations;
+using System.Windows;
+
 namespace Audio
 {
     public class Album
     {
-        public int id { get; set; }
-        public string name { get; set; }
-        public int user_id { get; set; }
-        public int status { get; set; }
-        public double duration { get; set; }
-        public string Duration { get
+        [Key]
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public int UserId { get; set; }
+        public int Status { get; set; }
+        public double Duration { get; set; }
+        public string FullDuration { get
             {
                 int min = 0,sec;
                 string s1="",s2="";
-                min = (int) ( duration / 60);
-                sec = (int)(duration - min * 60);
+                min = (int) ( Duration / 60);
+                sec = (int)(Duration - min * 60);
                 if (min < 10)
                     s1 = "0";
                 if (sec < 10)
@@ -29,12 +33,12 @@ namespace Audio
                 return s1+ min + ":" +s2+sec ;
             }
         }
-        public Album(string name,int user_id,int status,double duration)
+        public Album(string name,User user,int status,double duration)
         {
-            this.name = name;
-            this.user_id = user_id;
-            this.status = status;
-            this.duration = duration;
+            this.Name = name;
+            this.UserId = user.Id;
+            this.Status = status;
+            this.Duration = duration;
         }
         public Album()
         {
@@ -42,62 +46,48 @@ namespace Audio
         }
         public static bool ExistAlbum(Album alb)
         {
-            using (IDbConnection cnn = new SQLiteConnection(Load()))
+            using (Db db = new Db())
             {
-
-                var res = cnn.QueryFirstOrDefault<Album>("select * from Albums where name = @name ", new { login = alb.name});
-                if (res != null)
-                {
-                    Album u = (Album)res;
-                    if (u != null)
-                        return true;
-                    else return false;
-                }
-                else return false;
+                var res = db.Albums.FirstOrDefault(x => x.Name == alb.Name);
+                return true ? res == null : false;
             }
             
         }
-        private static string Load(string id = "Default")
-        {
-            return ConfigurationManager.ConnectionStrings[id].ConnectionString;
-        }
+      
         public static void AddAlbum(Album alb)
         {
-            using (IDbConnection cnn = new SQLiteConnection(Load()))
+            using (Db db = new Db())
             {
-                cnn.Execute("insert into Albums (name,user_id,status,duration) values(@name,@user_id,@status,@duration)", alb);
+               
+                db.Albums.Add(alb);
+                db.SaveChanges();
+             //   MessageBox.Show(db.Albums.FirstOrDefault().Name);
             }
         }
         public static Album find(string sms)
         {
-            using (IDbConnection cnn = new SQLiteConnection(Load()))
+            using (Db db = new Db())
             {
-                var res = cnn.QueryFirstOrDefault<Album>("select * from Albums where name=@name", new { name = sms });
-                if (res != null)
-                    return (Album)res;
-                else
-                    return null;
+                var res = db.Albums.FirstOrDefault(x => x.Name == sms);
+                return res;
             }
         }
         public static Album Find(int a)
         {
-            using (IDbConnection cnn = new SQLiteConnection(Load()))
+            using (Db db = new Db())
             {
-                var res = cnn.QueryFirstOrDefault<Album>("select * from Albums where id=@id", new { id = a });
-                if (res != null)
-                    return (Album)res;
-                else
-                    return null;
+                return db.Albums.FirstOrDefault(x => x.Id==a);
+               
             }
         }
         public static List<Album> GetAlbums(int us)
         {
-             using (IDbConnection cnn = new SQLiteConnection(Load()))
+            using (Db db = new Db())
             {
-                var res = cnn.Query<Album>("select * from Albums where user_id=@user_id or status = 1", new { user_id = us });
-                return res.ToList<Album>();
+                var res = db.Albums.Where(x => x.UserId == us);
+                return res.ToList();
             }
-            
+
         }
     }
 }
