@@ -21,7 +21,7 @@ namespace Audio
         public void mediaPlay(Song s)
         {
 
-            mdp.Open(new Uri(s.path, UriKind.Absolute));
+            mdp.Open(new Uri(s.Path, UriKind.Absolute));
             mdp.Play();
             isPlay = true;
             refresh(s);

@@ -96,11 +96,11 @@
                                     <ColumnDefinition Width="50"></ColumnDefinition>
                                     <ColumnDefinition Width="50"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
-                                <Button Click="alb_Click" DataContext="{Binding id}" Grid.Column="0" Height="32" Width="32" Background="#153a42" Style="{DynamicResource MaterialDesignFloatingActionButton}" BorderBrush="#153a42">
+                                <Button Click="alb_Click" DataContext="{Binding Id}" Grid.Column="0" Height="32" Width="32" Background="#153a42" Style="{DynamicResource MaterialDesignFloatingActionButton}" BorderBrush="#153a42">
                                     <materialDesign:PackIcon Kind="Play"></materialDesign:PackIcon>
                                 </Button>
-                                <TextBlock  Grid.Column="1" VerticalAlignment="Center"  FontSize="18" Padding="10 ,0,0,0" Text="{Binding name}" ></TextBlock>
-                                <TextBlock Grid.Column="3" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding Duration}"></TextBlock>
+                                <TextBlock  Grid.Column="1" VerticalAlignment="Center"  FontSize="18" Padding="10 ,0,0,0" Text="{Binding Name}" ></TextBlock>
+                                <TextBlock Grid.Column="3" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding FullDuration}"></TextBlock>
                                 
                             </Grid>
                         </materialDesign:Card>
@@ -136,7 +136,7 @@
                 <ComboBox  Grid.Row="3" Grid.ColumnSpan="2" Width="240" Background="White" x:Name="comboAlbum" BorderBrush="{x:Null}">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Height="20" Text="{Binding name}"></TextBlock>
+                            <TextBlock Height="20" Text="{Binding Name}"></TextBlock>
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>

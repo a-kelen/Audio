@@ -307,7 +307,7 @@ namespace Audio
                     User.AddUser(u);
                     Main m = new Main();
                     
-                    m.setUser(User.find(u.login));
+                    m.setUser(User.find(u.Login));
                     this.NavigationService.Navigate(m);
                     
                 }
@@ -321,8 +321,8 @@ namespace Audio
             User user = new User(l_text_1.Text, l_text_2.Password);
             if (User.ExistUser(user))
             {
-                Main m = new Main();
-                    m.setUser(User.find(user.login));
+                    Main m = new Main();
+                    m.setUser(User.find(user.Login));
 
                 this.NavigationService.Navigate(m);   
             }

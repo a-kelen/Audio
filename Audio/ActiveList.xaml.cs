@@ -36,11 +36,11 @@ namespace Audio
             list.ItemsSource = songs;
             if(songs.Count!=0)
             {
-                Album al = Album.Find(songs[0].album_id);
-                title1.Text = al.name;
-                title2.Text = al.Duration;
-                User u1 = User.findID(al.user_id);
-                title3.Text = u1.login;
+                Album al = Album.Find(songs[0].AlbumId);
+                title1.Text = al.Name;
+                title2.Text = al.Duration+"";
+                User u1 = User.findID(al.UserId);
+                title3.Text = u1.Login;
             }
         }
         public ObservableCollection<Song> songs;
@@ -52,7 +52,7 @@ namespace Audio
         public void refreshAlbum(Album al)
         {
             songs.Clear();
-            foreach (Song a in Song.GetSongs(al.id))
+            foreach (Song a in Song.GetSongs(al.Id))
             {
                 songs.Add(a);
 
@@ -61,18 +61,18 @@ namespace Audio
             if (songs.Count != 0)
             {
                
-                title1.Text = al.name;
-                title2.Text = al.Duration;
-                User u1 = User.findID(al.user_id);
-                title3.Text = u1.login;
+                title1.Text = al.Name;
+                title2.Text = al.Duration+"";
+                User u1 = User.findID(al.UserId);
+                title3.Text = u1.Login;
             }
         }
         private void descriptionSong(object s, RoutedEventArgs e)
         {
             Button bt = (Button)s;
-            var res = from a in songs where a.id == (int)bt.DataContext select a;
+            var res = from a in songs where a.Id == (int)bt.DataContext select a;
             Song so = res.ToList<Song>()[0];
-            var file = TagLib.File.Create(so.path);
+            var file = TagLib.File.Create(so.Path);
             TagLib.IPicture pic = file.Tag.Pictures[0];
             MemoryStream ms = new MemoryStream(pic.Data.Data);
             ms.Seek(0, SeekOrigin.Begin);
@@ -96,7 +96,7 @@ namespace Audio
             Button bt = (Button)s;
             int ID = (int)bt.DataContext;
             
-            var res = from a in songs where a.id == ID select a;
+            var res = from a in songs where a.Id == ID select a;
             Song ss = res.ToList<Song>()[0];
             indexActive = songs.IndexOf(ss);
             PlayS(ss);
@@ -177,7 +177,7 @@ namespace Audio
         }
         public void addInList(Song s)
         {
-            if(s.album_id==songs[0].album_id)
+            if(s.AlbumId==songs[0].AlbumId)
             songs.Add(s);
         }
         bool sortTag = false; 

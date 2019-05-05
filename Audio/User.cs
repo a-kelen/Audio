@@ -8,15 +8,19 @@ using System.Data;
 using System.Data.SQLite;
 using Dapper;
 using System.Collections;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Audio
 {
    public  class User
     {
-        public int id { get; set; }
-        public string login { get; set; }
-        public string password { get; set; }
-        public string detect { get; set; }
+        [Key]
+        public int Id { get; set; }
+        public string Login { get; set; }
+        public string Password { get; set; }
+        [NotMapped]
+        public string Detect { get; set; }
 
         public User()
         {
@@ -24,19 +28,19 @@ namespace Audio
         }
         public User(string l, string p)
         {
-            login = l;
-            password = p;
+            Login = l;
+            Password = p;
         }
         public static bool ExistUser(User user)
         {
-            using (IDbConnection cnn = new SQLiteConnection(Load()))
+            using (Db db = new Db())
             {
 
-                var res = cnn.QueryFirstOrDefault<User>("select * from Users where login=@login and password=@password",new { login = user.login ,password = user.password});
+                var res = db.Users.Where(x => x.Login == user.Login && x.Password==user.Password).FirstOrDefault();
                 if (res != null)
                 {
-                    User u = (User)res;
-                    if (u != null)
+                    
+                    if (res != null)
                         return true;
                     else return false;
                 }
@@ -46,37 +50,29 @@ namespace Audio
         }
         public static void AddUser(User user)
         {
-            using (IDbConnection cnn = new SQLiteConnection(Load()))
+            using (Db db = new Db())
             {
-                cnn.Execute("insert into Users (login,password) values(@login,@password)",user);  
+                db.Users.Add(user);
+                db.SaveChangesAsync();
             }
         }
 
-        private static string Load(string id = "Default")
-        {
-            return ConfigurationManager.ConnectionStrings[id].ConnectionString;
-        }
+        
 
         public static User find(string sms)
         {
-            using (IDbConnection cnn = new SQLiteConnection(Load()))
+            using (Db db = new Db())
             {
-                var res = cnn.QueryFirstOrDefault<User>("select * from Users where login=@login", new { login = sms });
-                if (res != null)
-                    return (User)res;
-                else
-                    return null;
+               var res = db.Users.Where(x => x.Login == sms).FirstOrDefault();
+                return res;
             }
         }
         public static User findID(int sms)
         {
-            using (IDbConnection cnn = new SQLiteConnection(Load()))
+            using (Db db = new Db())
             {
-                var res = cnn.QueryFirstOrDefault<User>("select * from Users where id=@id", new { id = sms });
-                if (res != null)
-                    return (User)res;
-                else
-                    return null;
+                var res = db.Users.Where(x => x.Id == sms).FirstOrDefault();
+                return res;
             }
         }
     }
