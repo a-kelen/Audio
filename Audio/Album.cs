@@ -42,7 +42,7 @@ namespace Audio
         }
         public Album()
         {
-
+           
         }
         public static bool ExistAlbum(Album alb)
         {

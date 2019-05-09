@@ -18,6 +18,7 @@ using System.Windows.Shapes;
 using TagLib;
 using System.Windows.Threading;
 using System.Drawing;
+
 namespace Audio
 {
     /// <summary>
@@ -37,6 +38,7 @@ namespace Audio
             activeList = new ActiveList();
             activeList.PlayS += md.mediaPlay;
             albums = new Albums();
+            rating = new Rating();
             albums.refreshAlbum += activeList.refreshAlbum;
             TwoFrame.NavigationService.Navigate(activeList);
             prevSong.Click += activeList.eventPlayPrev;
@@ -51,6 +53,7 @@ namespace Audio
         
         ActiveList activeList;
         Albums albums;
+        Rating rating;
         User _user;
         media md;
         ObservableCollection<Song> songs;
@@ -63,6 +66,7 @@ namespace Audio
         {
             musicTilte.Text = s.Title;
             musicArtist.Text = s.Artist;
+            like.DataContext = s.Id;
             position.Minimum = 0;
             position.Maximum = s.Duration-1;
             position.Delay = 1;
@@ -70,7 +74,17 @@ namespace Audio
             TagLib.IPicture pic = file.Tag.Pictures[0];
             MemoryStream ms = new MemoryStream(pic.Data.Data);
             ms.Seek(0, SeekOrigin.Begin);
-
+            using (Db db = new Db())
+            {
+                if (db.Favorites.FirstOrDefault(x => x.UserId == _user.Id && x.SongId == s.Id) == null)
+                {
+                    like.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(30, 255, 255, 255));
+                }
+                else
+                {
+                    like.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(0, 255, 255, 255));
+                }
+            }
             BitmapImage bitmap = new BitmapImage();
             bitmap.BeginInit();
             bitmap.StreamSource = ms;
@@ -230,6 +244,34 @@ namespace Audio
                 random.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(0, 255, 255, 255));
             }
 
+        }
+
+        private void menu3_Click(object sender, RoutedEventArgs e)
+        {
+           
+            TwoFrame.NavigationService.Navigate(rating);
+        }
+
+        private void like_Click(object sender, RoutedEventArgs e)
+        {
+            Button button = (Button)sender;
+            int Id = (int)button.DataContext;
+            using(Db db = new Db())
+            {
+                if (db.Favorites.FirstOrDefault(x => x.UserId == _user.Id && x.SongId == Id) == null)
+                {
+                    like.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(30, 255, 255, 255));
+                    db.Favorites.Add(new Favorite { SongId = Id, UserId = _user.Id });
+                    db.SaveChangesAsync();
+                }
+                else
+                {
+                    db.Favorites.Remove(db.Favorites.FirstOrDefault(x => x.UserId == _user.Id && x.SongId == Id));
+                    db.SaveChangesAsync();
+                    like.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(0, 255, 255, 255));
+                }
+            }
+            
         }
     }
 }
