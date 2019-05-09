@@ -226,11 +226,15 @@
       <DependentUpon>ActiveList.xaml</DependentUpon>
     </Compile>
     <Compile Include="Album.cs" />
+    <Compile Include="AlbumBuilder.cs" />
     <Compile Include="Albums.xaml.cs">
       <DependentUpon>Albums.xaml</DependentUpon>
     </Compile>
     <Compile Include="Class1.cs" />
     <Compile Include="Db.cs" />
+    <Compile Include="DevSong.cs" />
+    <Compile Include="Favorite.cs" />
+    <Compile Include="iDevSong.cs" />
     <Compile Include="Main.xaml.cs">
       <DependentUpon>Main.xaml</DependentUpon>
     </Compile>
@@ -241,6 +245,7 @@
     <Compile Include="Rating.xaml.cs">
       <DependentUpon>Rating.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SingleDevSong.cs" />
     <Compile Include="Song.cs" />
     <Compile Include="SongArtistCompare.cs" />
     <Compile Include="SongTitleComparer.cs" />

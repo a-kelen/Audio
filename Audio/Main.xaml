@@ -43,7 +43,7 @@
             <Button x:Name="menu2" materialDesign:ShadowAssist.ShadowDepth="Depth5" Margin="-200,0,0,20" Grid.Row="1" Grid.RowSpan="2"  Panel.ZIndex="1000" Background="#153c45" BorderBrush="#153c45" Style="{DynamicResource MaterialDesignFloatingActionButton}" Click="menu2_Click">
                 <materialDesign:PackIcon Kind="PlaylistPlay"></materialDesign:PackIcon>
             </Button>
-            <Button x:Name="menu3" materialDesign:ShadowAssist.ShadowDepth="Depth5" Margin="-200,130,0,20" Grid.Row="1" Grid.RowSpan="2"  Panel.ZIndex="1000" Background="#153c45" BorderBrush="#153c45" Style="{DynamicResource MaterialDesignFloatingActionButton}">
+            <Button x:Name="menu3" materialDesign:ShadowAssist.ShadowDepth="Depth5" Margin="-200,130,0,20" Grid.Row="1" Grid.RowSpan="2"  Panel.ZIndex="1000" Background="#153c45" BorderBrush="#153c45" Style="{DynamicResource MaterialDesignFloatingActionButton}" Click="menu3_Click">
                 <materialDesign:PackIcon Kind="About"></materialDesign:PackIcon>
             </Button>
         </Grid>
@@ -97,8 +97,8 @@
                         <materialDesign:PackIcon x:Name="icoRandom"  Kind="SwapHorizontalVariant" Height="25" Width="25"></materialDesign:PackIcon>
                     </Button>
                     
-                    <Button Grid.Column="1" Grid.Row="1" Height="60" Background="{x:Null}" BorderBrush="{x:Null}">
-                        <materialDesign:PackIcon Kind="HexagonMultiple" Height="25" Width="25"></materialDesign:PackIcon>
+                    <Button x:Name="like" Grid.Column="1" Grid.Row="1" Height="60" Background="{x:Null}" BorderBrush="{x:Null}" Click="like_Click">
+                        <materialDesign:PackIcon Kind="LikeOutline" Height="25" Width="25"></materialDesign:PackIcon>
                     </Button>
                 </Grid>
             </Grid>

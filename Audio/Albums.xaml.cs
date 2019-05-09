@@ -107,15 +107,17 @@ namespace Audio
                         temp.Add(filename);
 
                 }
-
+                iDevSong devSong = SingleDevSong.GetDev();
                 foreach (string f in temp)
                 {
                     var tags = TagLib.File.Create(f);
                     string title = tags.Tag.Title;
-                    string artist = tags.Tag.FirstPerformer;
+                    string artist = tags.Tag.FirstAlbumArtist;
                     string path = f;
                     double duration = tags.Properties.Duration.TotalSeconds;
-                    Song s = new Song(title, artist, path, duration, alb);
+                    string genre = tags.Tag.FirstGenre;
+
+                    Song s = devSong.Create(title, artist, path, duration, alb, genre);
                     
                     Song.AddSong(s);
                 }

@@ -22,13 +22,15 @@ namespace Audio
       public  string Artist { get; set; }
       public  string Path { get; set; }
       public  double Duration { get; set; }
+      public int Likes { get; set; }
+      public string Genre { get; set; }
         [NotMapped]
         public string fullName { get
             {
                 return Title + " - " + Artist;
             }
         }
-         [NotMapped]
+        [NotMapped]
         public string FullDuration
         {
             get
@@ -48,13 +50,15 @@ namespace Audio
         public delegate void _added(Song s);
         static public event _added addedSong; 
 
-        public Song(string title,string artist,string path,double duration,Album album)
+        public Song(string title,string artist,string path,double duration,Album album , string Genre)
         {
             this.Title = title;
             this.AlbumId = album.Id;
             this.Artist = Artist;
             this.Path = path;
             this.Duration = duration;
+            this.Genre = Genre;
+            this.Likes = 0;
         }
         public Song()
         {
@@ -86,9 +90,10 @@ namespace Audio
         {
             using (Db db = new Db())
             {
-                var res = db.Songs.Where(x => x.AlbumId == us).ToList();
 
-                    return res;
+                var res = db.Songs.Where(x => x.AlbumId == us);
+
+                    return res.ToList<Song>();
             }
 
         }
