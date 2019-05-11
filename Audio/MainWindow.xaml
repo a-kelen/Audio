@@ -1,7 +1,9 @@
 ﻿<Window x:Class="Audio.MainWindow"
         WindowStyle="None"
         BorderBrush="Green"
-        
+        AllowsTransparency="True"
+        ResizeMode="CanResize"
+        WindowStartupLocation="CenterScreen"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
@@ -17,12 +19,13 @@
         xmlns:local="clr-namespace:Audio"
         mc:Ignorable="d"
         Title="MainWindow"
-        Height="450" Width="800"
+        Height="550" Width="800"
         x:Name="main">
     <Grid  Background="#176170" >
         <Grid.RowDefinitions>
             <RowDefinition Height="30"></RowDefinition>
             <RowDefinition></RowDefinition>
+           
         </Grid.RowDefinitions>
         <Grid Height="30" Grid.Row="0" Panel.ZIndex="1000">
             <Grid.ColumnDefinitions>
@@ -31,14 +34,14 @@
                 <ColumnDefinition Width="30"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <TextBlock PreviewMouseLeftButtonDown="move" FontSize="22" VerticalAlignment="Center" Margin="10,0,0,0  " Foreground="White">Audio</TextBlock>
-            <Button Height="25" Click="full_screen" Width="25" Background="White" BorderBrush="{x:Null}" Style="{DynamicResource MaterialDesignFloatingActionButton}" Grid.Column="1">
-                <materialDesign:PackIcon Foreground="#176170" Kind="Fullscreen"></materialDesign:PackIcon>
+            <Button Height="30" Click="full_screen" Width="30" Background="{x:Null}" BorderBrush="{x:Null}"  Grid.Column="1">
+                <materialDesign:PackIcon Margin="-9 0" Foreground="White" Kind="Fullscreen"></materialDesign:PackIcon>
             </Button>
-            <Button Height="25" Click="close_window" Width="25" Background="White" BorderBrush="{x:Null}" Style="{DynamicResource MaterialDesignFloatingActionButton}" Grid.Column="2">
-                <materialDesign:PackIcon Foreground="#176170" Kind="Close"></materialDesign:PackIcon>
+            <Button Height="30" Click="close_window" Width="30" Background="{x:Null}"  BorderBrush="{x:Null}"  Grid.Column="2">
+                <materialDesign:PackIcon  Margin="-9 0" Foreground="White" Kind="Close"></materialDesign:PackIcon>
             </Button>
         </Grid>
         <Frame Grid.Row="1" x:Name="mainframe" Margin="0 ,0,0,0" NavigationUIVisibility="Hidden"></Frame>
-        
+        <Thumb DragDelta="resizeWin" x:Name="resize" Cursor="ScrollSE" Grid.RowSpan="2"  Height="10" Width="10" Panel.ZIndex="100" VerticalAlignment="Bottom" HorizontalAlignment="Right"></Thumb>
     </Grid>
 </Window>

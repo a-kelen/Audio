@@ -1,0 +1,49 @@
+﻿<Window x:Class="Audio.WinFormater"
+        ResizeMode="NoResize"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        WindowStartupLocation="CenterScreen"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Audio"
+        mc:Ignorable="d"
+        Title="WinFormater"  Height="340" Width="450">
+    <Grid  Background="#176170">
+        <Grid.RowDefinitions>
+            <RowDefinition ></RowDefinition>
+            <RowDefinition ></RowDefinition>
+            <RowDefinition ></RowDefinition>
+            <RowDefinition ></RowDefinition>
+            <RowDefinition ></RowDefinition>
+            <RowDefinition ></RowDefinition>
+
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            
+        </Grid.ColumnDefinitions>
+        <TextBlock Grid.Row="0" FontSize="20" Foreground="#fff" VerticalAlignment="Center" HorizontalAlignment="Right">Назва</TextBlock>
+        <TextBlock Grid.Row="1" FontSize="20" Foreground="#fff" VerticalAlignment="Center" HorizontalAlignment="Right">Автор</TextBlock>
+        <TextBlock Grid.Row="2" FontSize="20" Foreground="#fff" VerticalAlignment="Center" HorizontalAlignment="Right">Жанр</TextBlock>
+        <TextBlock Grid.Row="3" FontSize="20" Foreground="#fff" VerticalAlignment="Center" HorizontalAlignment="Right">Альбом</TextBlock>
+        <TextBlock Grid.Row="4" FontSize="20" Foreground="#fff" VerticalAlignment="Center" HorizontalAlignment="Right">Рік</TextBlock>
+        <TextBox x:Name="name" Grid.Row="0" Grid.Column="1" Background="#fff" Width="170" Height="35" ></TextBox>
+        <TextBox x:Name="author" Grid.Row="1" Grid.Column="1" Background="#fff" Width="170" Height="35" ></TextBox>
+        <TextBox x:Name="genre" Grid.Row="2" Grid.Column="1" Background="#fff" Width="170" Height="35" ></TextBox>
+        <TextBox x:Name="album" Grid.Row="3" Grid.Column="1" Background="#fff" Width="170" Height="35" ></TextBox>
+        <TextBox x:Name="year" Grid.Row="4" Grid.Column="1" Background="#fff" Width="170" Height="35" ></TextBox>
+        <Button HorizontalAlignment="Right" Grid.Row="5" Width="120" x:Name="cancel" BorderBrush="{x:Null}" Background="#fff" Foreground="#176170" FontSize="17" Click="cancel_Click">Скасувати</Button>
+        <Button  Grid.Column="1" Grid.Row="5" Width="190" x:Name="save" BorderBrush="{x:Null}" Background="#fff" Foreground="#176170" FontSize="17" Click="save_Click">Зберегти</Button>
+    </Grid>
+</Window>
