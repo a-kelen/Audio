@@ -125,22 +125,37 @@
                     <RowDefinition Height="55"></RowDefinition>
                     <RowDefinition Height="55"></RowDefinition>
                     <RowDefinition Height="55"></RowDefinition>
+                    <RowDefinition Height="55"></RowDefinition>
+                    <RowDefinition Height="55"></RowDefinition>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
 
                 <Button x:Name="AddAlb" Click="addAlbum" Background="#153a42" Width="100"  BorderBrush="{x:Null}" VerticalAlignment="Top" Margin="10">Створити</Button>
                 <CheckBox IsChecked="False" Grid.Column="2" HorizontalAlignment="Right" Margin="10" Background="White" x:Name="albumPrivate" Content="Приватний" Foreground="White"></CheckBox>
                 <Button Background="#153a42" Width="100" Grid.Column="1" Grid.Row="2" BorderBrush="{x:Null}" VerticalAlignment="Top" Margin="10" Click="Button_Click">Додати </Button>
-                
+                <TextBlock  Grid.Row="2" Grid.ColumnSpan="1" FontSize="13" VerticalAlignment="Center" Foreground="#153a42" Padding="5" >Додати до альбому</TextBlock>
+
                 <TextBox x:Name="create_abl_name" Grid.Row="1" Height="30" Grid.ColumnSpan="2" Width="230" Background="White" BorderBrush="{x:Null}"></TextBox>
-                <ComboBox  Grid.Row="3" Grid.ColumnSpan="2" Width="240" Background="White" x:Name="comboAlbum" BorderBrush="{x:Null}">
+                <ComboBox  Grid.Row="3" Grid.ColumnSpan="2" Width="240" Background="White" x:Name="comboAlbum" BorderBrush="{x:Null}" Margin="14,13,16,14">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <TextBlock Height="20" Text="{Binding Name}"></TextBlock>
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
+                <TextBlock  Grid.Row="4" Grid.ColumnSpan="2" FontSize="11" VerticalAlignment="Center" Foreground="#153a42" Padding="5" >Альбом за умовчуванням</TextBlock>
+                <ComboBox  Grid.Row="5" Grid.ColumnSpan="2" Width="240" Background="White" x:Name="comboDefaultAlbum" BorderBrush="{x:Null}" Margin="14,13,16,14">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Height="20" Text="{Binding Name}"></TextBlock>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <Button x:Name="defeniteAlbum" Background="#153a42" Width="100" Grid.Column="1" Grid.Row="4" FontSize="12" BorderBrush="{x:Null}" VerticalAlignment="Top" Margin="10" Click="defeniteAlbum_Click">Застосувати</Button>
+
             </Grid>
+
+
         </materialDesign:Card>
 
     </Grid>
