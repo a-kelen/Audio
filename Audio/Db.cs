@@ -17,10 +17,11 @@ namespace Audio
         public DbSet<Album> Albums { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Favorite> Favorites { get; set; }
+        public DbSet<AlbumDefault> AlbumDefaults { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("Data Source=Audio.db");
+            optionsBuilder.UseSqlite("Data Source=DB.db");
         }
     }
 }

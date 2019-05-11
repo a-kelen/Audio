@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,39 +11,25 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Windows.Media.Animation;
-using System.Collections.ObjectModel;
-using System.IO;
 
 namespace Audio
 {
     /// <summary>
-    /// Interaction logic for ActiveList.xaml
+    /// Interaction logic for Favorites.xaml
     /// </summary>
-    public partial class ActiveList : Page
+    public partial class Favorites : Page
     {
-        public ActiveList()
+        public Favorites()
         {
             InitializeComponent();
             Song.addedSong += addInList;
             songs = new ObservableCollection<Song>();
-            foreach(Song a in Song.GetSongs(2))
-            {
-                songs.Add(a);
-                
-            }
+            
             list.ItemsSource = songs;
-            if(songs.Count!=0)
-            {
-                Album al = Album.Find(songs[0].AlbumId);
-                title1.Text = al.Name;
-                title2.Text = al.Duration+"";
-                User u1 = User.findID(al.UserId);
-                title3.Text = u1.Login;
-            }
         }
         public ObservableCollection<Song> songs;
         public delegate void player(Song s);
@@ -49,23 +37,13 @@ namespace Audio
         int indexActive = 0;
 
         bool showed_search = false;
-        public void refreshAlbum(Album al)
+        
+        public void setSongs(User u)
         {
-            songs.Clear();
-            
-            foreach (Song a in Song.GetSongs(al.Id))
+            foreach (Song a in Song.GetFavoritesSongs(u.Id))
             {
                 songs.Add(a);
 
-            }
-            list.ItemsSource = songs;
-            if (songs.Count != 0)
-            {
-               
-                title1.Text = al.Name;
-                title2.Text = al.FullDuration;
-                User u1 = User.findID(al.UserId);
-                title3.Text = u1.Login;
             }
         }
         private void descriptionSong(object s, RoutedEventArgs e)
@@ -73,7 +51,6 @@ namespace Audio
             Button bt = (Button)s;
             var res = from a in songs where a.Id == (int)bt.DataContext select a;
             Song so = res.ToList<Song>()[0];
-            changeSongContent.DataContext = so;
             var file = TagLib.File.Create(so.Path);
             TagLib.IPicture pic = file.Tag.Pictures[0];
             MemoryStream ms = new MemoryStream(pic.Data.Data);
@@ -85,18 +62,18 @@ namespace Audio
             bitmap.EndInit();
             des_title.Text = file.Tag.Title;
             des_Artist.Text = file.Tag.Artists[0];
-            des_duration.Text = file.Properties.Duration.Minutes+":"+ file.Properties.Duration.Seconds;
+            des_duration.Text = file.Properties.Duration.Minutes + ":" + file.Properties.Duration.Seconds;
             des_genre.Text = file.Tag.Genres[0];
             des_album.Text = file.Tag.Album;
-            des_year.Text = ""+file.Tag.Year;
+            des_year.Text = "" + file.Tag.Year;
             des_image.Source = bitmap;
 
         }
-        private void playingSong(object s,RoutedEventArgs e)
+        private void playingSong(object s, RoutedEventArgs e)
         {
             Button bt = (Button)s;
             int ID = (int)bt.DataContext;
-            
+
             var res = from a in songs where a.Id == ID select a;
             Song ss = res.ToList<Song>()[0];
             indexActive = songs.IndexOf(ss);
@@ -104,7 +81,7 @@ namespace Audio
         }
         public void eventPlayPrev(object s, EventArgs e)
         {
-            if(indexActive>0)
+            if (indexActive > 0)
             {
                 indexActive--;
                 PlayS(songs[indexActive]);
@@ -120,9 +97,10 @@ namespace Audio
                 indexActive = rand.Next(0, songs.Count);
                 PlayS(songs[indexActive]);
 
-            }else if (indexActive < songs.Count-1)
+            }
+            else if (indexActive < songs.Count - 1)
             {
-                if(isRandom)
+                if (isRandom)
                 {
                     Random rand = new Random();
                     indexActive = rand.Next(0, songs.Count);
@@ -160,7 +138,7 @@ namespace Audio
             }
 
         }
-        bool showed_description = false;
+        bool showed_description = true;
         private void show_description(object sender, RoutedEventArgs e)
         {
             if (showed_description)
@@ -177,23 +155,24 @@ namespace Audio
         }
         public void addInList(Song s)
         {
-            if(s.AlbumId==songs[0].AlbumId)
-            songs.Add(s);
+            if (s.AlbumId == songs[0].AlbumId)
+                songs.Add(s);
         }
-        bool sortTag = false; 
+        bool sortTag = false;
         public void sortList(object s, RoutedEventArgs e)
         {
-            if(sortTag)
+            if (sortTag)
             {
                 SortTitle(songs);
                 sortTag = false;
             }
-            else {
+            else
+            {
                 SortArtist(songs);
                 sortTag = true;
             }
         }
-        public  void SortTitle(ObservableCollection<Song> collection)
+        public void SortTitle(ObservableCollection<Song> collection)
         {
             var sortableList = new List<Song>(collection);
             sortableList.Sort(new SongTitleComparer());
@@ -221,21 +200,6 @@ namespace Audio
             }
             else
                 list.ItemsSource = songs;
-        }
-        WinFormater formater;
-        private void changeSongContent_Click(object sender, RoutedEventArgs e)
-        {
-            Button b = (Button)sender;
-            Song s = (Song)b.DataContext;
-            if (formater==null)
-                formater = new WinFormater(s);
-            else
-            {
-                formater.Close();
-                formater = new WinFormater(s);
-            }
-            formater.Show();
-           
         }
     }
 }

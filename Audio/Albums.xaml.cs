@@ -33,7 +33,7 @@ namespace Audio
                 albums.Add(a);
             list.ItemsSource = albums ;
             comboAlbum.ItemsSource = albums;
-            
+            comboDefaultAlbum.ItemsSource = albums;
         }
         ObservableCollection<Album> albums;
         User _user = new User { Id = 3};
@@ -116,7 +116,7 @@ namespace Audio
                     string path = f;
                     double duration = tags.Properties.Duration.TotalSeconds;
                     string genre = tags.Tag.FirstGenre;
-
+                    alb.Duration += duration;
                     Song s = devSong.Create(title, artist, path, duration, alb, genre);
                     
                     Song.AddSong(s);
@@ -155,6 +155,14 @@ namespace Audio
             }
             else
                 list.ItemsSource = albums;
+        }
+
+        private void defeniteAlbum_Click(object sender, RoutedEventArgs e)
+        {
+            if(comboDefaultAlbum.SelectedItem!=null)
+            {
+                Album.setDefaultForUser((Album)comboDefaultAlbum.SelectedItem, this._user);
+            }
         }
     }
 }

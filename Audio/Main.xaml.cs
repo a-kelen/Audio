@@ -37,23 +37,27 @@ namespace Audio
             playStopSong.Click += changeIcoPlayStop;
             activeList = new ActiveList();
             activeList.PlayS += md.mediaPlay;
+            
             albums = new Albums();
             rating = new Rating();
+            
             albums.refreshAlbum += activeList.refreshAlbum;
             TwoFrame.NavigationService.Navigate(activeList);
             prevSong.Click += activeList.eventPlayPrev;
             nextSong.Click += activeList.eventPlayNext;
+            md.mdp.MediaEnded += activeList.eventPlayNext;
             dt = new DispatcherTimer();
             dt.Interval = TimeSpan.FromMilliseconds(400);
             dt.Tick += changePos;
             volume.Value = 1;
-            md.mdp.MediaEnded += activeList.eventPlayNext;
+            
         }
 
         
         ActiveList activeList;
         Albums albums;
         Rating rating;
+        Favorites favorites;
         User _user;
         media md;
         ObservableCollection<Song> songs;
@@ -78,11 +82,11 @@ namespace Audio
             {
                 if (db.Favorites.FirstOrDefault(x => x.UserId == _user.Id && x.SongId == s.Id) == null)
                 {
-                    like.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(30, 255, 255, 255));
+                    like.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(0, 255, 255, 255));
                 }
                 else
                 {
-                    like.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(0, 255, 255, 255));
+                    like.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(30, 255, 255, 255));
                 }
             }
             BitmapImage bitmap = new BitmapImage();
@@ -162,8 +166,15 @@ namespace Audio
                 Storyboard.SetTarget(animation3, menu3);
                 Storyboard.SetTargetProperty(animation3, new PropertyPath(MarginProperty));
 
+                var animation4 = new ThicknessAnimation();
+                animation4.IsAdditive = true;
+                animation4.To = new Thickness(20, 260, 0, 20);
+                animation4.Duration = TimeSpan.FromMilliseconds(200);
+                menu4.BeginAnimation(MarginProperty, animation4);
+                Storyboard.SetTarget(animation4, menu4);
+                Storyboard.SetTargetProperty(animation4, new PropertyPath(MarginProperty));
                 var s = new Storyboard();
-                s.Children = new TimelineCollection { animation1, animation2, animation3 };
+                s.Children = new TimelineCollection { animation1, animation2, animation3 , animation4};
                 showed_menu = false;
             }
                 else { 
@@ -189,7 +200,15 @@ namespace Audio
             Storyboard.SetTarget(animation3, menu3);
             Storyboard.SetTargetProperty(animation3, new PropertyPath(MarginProperty));
 
-            var s = new Storyboard();
+                var animation4 = new ThicknessAnimation();
+                animation4.IsAdditive = true;
+                animation4.To = new Thickness(-190, -130, 0, 20);
+                animation4.Duration = TimeSpan.FromMilliseconds(200);
+                menu4.BeginAnimation(MarginProperty, animation4);
+                Storyboard.SetTarget(animation4, menu4);
+                Storyboard.SetTargetProperty(animation4, new PropertyPath(MarginProperty));
+
+                var s = new Storyboard();
             s.Children = new TimelineCollection { animation1 ,animation2,animation3};
 
             s.Begin();
@@ -248,30 +267,51 @@ namespace Audio
 
         private void menu3_Click(object sender, RoutedEventArgs e)
         {
-           
-            TwoFrame.NavigationService.Navigate(rating);
+            favorites = new Favorites();
+            favorites.PlayS += md.mediaPlay;
+            prevSong.Click += favorites.eventPlayPrev;
+            nextSong.Click += favorites.eventPlayNext;
+            md.mdp.MediaEnded += favorites.eventPlayNext;
+            TwoFrame.NavigationService.Navigate(favorites);
+            favorites.setSongs(this._user);
+            
         }
 
         private void like_Click(object sender, RoutedEventArgs e)
         {
             Button button = (Button)sender;
-            int Id = (int)button.DataContext;
-            using(Db db = new Db())
+            if(button.DataContext!=null)
             {
-                if (db.Favorites.FirstOrDefault(x => x.UserId == _user.Id && x.SongId == Id) == null)
+                int Id = (int)button.DataContext;
+                using (Db db = new Db())
                 {
-                    like.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(30, 255, 255, 255));
-                    db.Favorites.Add(new Favorite { SongId = Id, UserId = _user.Id });
-                    db.SaveChangesAsync();
-                }
-                else
-                {
-                    db.Favorites.Remove(db.Favorites.FirstOrDefault(x => x.UserId == _user.Id && x.SongId == Id));
-                    db.SaveChangesAsync();
-                    like.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(0, 255, 255, 255));
+                    if (db.Favorites.FirstOrDefault(x => x.UserId == _user.Id && x.SongId == Id) == null)
+                    {
+                        like.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(30, 255, 255, 255));
+                        db.Favorites.Add(new Favorite { SongId = Id, UserId = _user.Id });
+                        db.SaveChangesAsync();
+                    }
+                    else
+                    {
+                        db.Favorites.Remove(db.Favorites.FirstOrDefault(x => x.UserId == _user.Id && x.SongId == Id));
+                        db.SaveChangesAsync();
+                        like.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(0, 255, 255, 255));
+                    }
                 }
             }
             
+            
+        }
+
+        private void menu4_Click(object sender, RoutedEventArgs e)
+        {
+            rating = new Rating();
+            rating.PlayS += md.mediaPlay;
+            prevSong.Click += rating.eventPlayPrev;
+            nextSong.Click += rating.eventPlayNext;
+            md.mdp.MediaEnded += rating.eventPlayNext;
+            TwoFrame.NavigationService.Navigate(rating);
+            rating.setSongs(this._user);
         }
     }
 }

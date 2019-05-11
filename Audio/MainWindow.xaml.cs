@@ -52,6 +52,14 @@ namespace Audio
             }
 
         }
+        void resizeWin(object sender, System.Windows.Controls.Primitives.DragDeltaEventArgs e)
+        {
+            if (this.Width + e.HorizontalChange > 4)
+                this.Width += e.HorizontalChange;
+            if (this.Height + e.VerticalChange > 4)
+                this.Height += e.VerticalChange;
+
+        }
 
     }
 }
