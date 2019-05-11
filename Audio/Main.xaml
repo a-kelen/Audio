@@ -13,7 +13,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Audio"
       mc:Ignorable="d"
-      Title="Main" d:DesignWidth="1140.25" >
+      Title="Main" d:DesignWidth="1140.25"  >
    
         <Grid>
         <Grid.RowDefinitions>
@@ -23,18 +23,17 @@
             <RowDefinition ></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="136*"></ColumnDefinition>
-            <ColumnDefinition Width="136*"></ColumnDefinition>
-            <ColumnDefinition Width="137*"></ColumnDefinition>
-            <ColumnDefinition Width="136*"></ColumnDefinition>
-            <ColumnDefinition Width="274*"></ColumnDefinition>
-            <ColumnDefinition Width="0*"></ColumnDefinition>
-            <ColumnDefinition Width="0*"/>
+            <ColumnDefinition ></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition ></ColumnDefinition>
+            <ColumnDefinition ></ColumnDefinition>
+            <ColumnDefinition ></ColumnDefinition>
+           
         </Grid.ColumnDefinitions>
             
         
-        <Grid Width="100" Height="300" Panel.ZIndex="10"  VerticalAlignment="Top" HorizontalAlignment="Left" Grid.Row="1" Grid.RowSpan="3">
-            <Button Panel.ZIndex="100" Click="show_menu" Margin="-20,-260,0,0" Grid.Row="1" Height="35" Width="35" Background="#153a42" BorderBrush="#153a42"  Style="{DynamicResource MaterialDesignFloatingActionButton}">
+        <Grid Width="100" Height="340" Panel.ZIndex="10"  VerticalAlignment="Top" HorizontalAlignment="Left" Grid.Row="1" Grid.RowSpan="3">
+            <Button Panel.ZIndex="100" Click="show_menu" Margin="-20,-300,0,0" Grid.Row="1" Height="35" Width="35" Background="#153a42" BorderBrush="#153a42"  Style="{DynamicResource MaterialDesignFloatingActionButton}">
                 <materialDesign:PackIcon x:Name="btn_r_icon" Kind="Menu" Height="20" Width="20"></materialDesign:PackIcon>
             </Button>
             <Button x:Name="menu1" materialDesign:ShadowAssist.ShadowDepth="Depth5" Margin="-200,-130,0,20" Grid.Row="1" Grid.RowSpan="2" Panel.ZIndex="1000" Background="#153c45" BorderBrush="#153c45" Style="{DynamicResource MaterialDesignFloatingActionButton}" Click="menu1_Click" >
@@ -44,10 +43,13 @@
                 <materialDesign:PackIcon Kind="PlaylistPlay"></materialDesign:PackIcon>
             </Button>
             <Button x:Name="menu3" materialDesign:ShadowAssist.ShadowDepth="Depth5" Margin="-200,130,0,20" Grid.Row="1" Grid.RowSpan="2"  Panel.ZIndex="1000" Background="#153c45" BorderBrush="#153c45" Style="{DynamicResource MaterialDesignFloatingActionButton}" Click="menu3_Click">
-                <materialDesign:PackIcon Kind="About"></materialDesign:PackIcon>
+                <materialDesign:PackIcon Kind="Like"></materialDesign:PackIcon>
+            </Button>
+            <Button x:Name="menu4" materialDesign:ShadowAssist.ShadowDepth="Depth5" Margin="-200,260,0,20" Grid.Row="1" Grid.RowSpan="2"  Panel.ZIndex="1000" Background="#153c45" BorderBrush="#153c45" Style="{DynamicResource MaterialDesignFloatingActionButton}" Click="menu4_Click" >
+                <materialDesign:PackIcon Kind="Star" ></materialDesign:PackIcon>
             </Button>
         </Grid>
-        <materialDesign:Card x:Name="main_panel" Grid.Row="0" Grid.ColumnSpan="5" materialDesign:ShadowAssist.ShadowDepth="Depth0" Background="#176170" Height="150">
+        <materialDesign:Card x:Name="main_panel" Grid.Row="0"   Grid.ColumnSpan="5" materialDesign:ShadowAssist.ShadowDepth="Depth0" Background="#176170" Height="150">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="150"></ColumnDefinition>
@@ -68,8 +70,8 @@
                 </Grid.RowDefinitions>
               
                 <Image x:Name="imageSong" Grid.RowSpan="6"></Image>
-                <Slider x:Name="position" ValueChanged="Position_Changed" Foreground="#2cc3a6" Delay="1" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="5"  Margin="65,3,64,-3"></Slider>
-                <Slider x:Name="volume" Foreground="#2cc3a6" Minimum="0" Maximum="1" Orientation="Vertical" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="5" ValueChanged="Slider_ValueChanged" Margin="9,2,121,23"></Slider>
+                <Slider IsMoveToPointEnabled="True" x:Name="position" ValueChanged="Position_Changed" materialDesign:ColorZoneAssist.Mode="Light"  Foreground="#ffffff" Delay="1" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="5"  Margin="65,3,64,-3"></Slider>
+                <Slider IsMoveToPointEnabled="True" x:Name="volume"  Minimum="0" Maximum="1" Orientation="Vertical" materialDesign:ColorZoneAssist.Mode="Light"  Foreground="#ffffff"  Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="5" ValueChanged="Slider_ValueChanged" Margin="9,2,121,23"></Slider>
                 <TextBlock Foreground="White" Grid.Column="2" Grid.RowSpan="2" Grid.ColumnSpan="3" VerticalAlignment="Center" TextAlignment="Center" FontSize="25" Margin="0,10" Height="30" x:Name="musicTilte"></TextBlock>
                 <TextBlock Foreground="White" Grid.Column="2" Grid.ColumnSpan="3" TextAlignment="Center" Grid.Row="2" FontSize="18" x:Name="musicArtist"></TextBlock>
                 <Button x:Name="prevSong" Background="{x:Null}" Grid.Column="2" Grid.RowSpan="2" Grid.Row="3" BorderBrush="{x:Null}" Margin="0,9" Height="Auto">
@@ -105,7 +107,7 @@
             
         </materialDesign:Card>
 
-        <Frame x:Name="TwoFrame" Panel.ZIndex="3" Grid.ColumnSpan="6" Grid.Row="1" Grid.RowSpan="3"></Frame>
+        <Frame x:Name="TwoFrame" Panel.ZIndex="3" Grid.ColumnSpan="6" Grid.Row="1" Grid.RowSpan="3" ></Frame>
 
     </Grid>
 </Page>

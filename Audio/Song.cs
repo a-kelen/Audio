@@ -57,8 +57,8 @@ namespace Audio
             this.Artist = Artist;
             this.Path = path;
             this.Duration = duration;
-            this.Genre = Genre;
-            this.Likes = 0;
+            //this.Genre = Genre;
+          //  this.Likes = 0;
         }
         public Song()
         {
@@ -70,6 +70,9 @@ namespace Audio
             using (Db db = new Db())
             {
                 db.Songs.Add(song);
+                Album a = db.Albums.FirstOrDefault(x => x.Id == song.AlbumId);
+                a.Duration += song.Duration;
+                db.Albums.Update(a);
                 db.SaveChangesAsync();
 
             }
@@ -90,10 +93,31 @@ namespace Audio
         {
             using (Db db = new Db())
             {
-
                 var res = db.Songs.Where(x => x.AlbumId == us);
 
-                    return res.ToList<Song>();
+                    return res.ToList();
+            }
+
+        }
+        public static List<Song> GetFavoritesSongs(int us)
+        {
+            using (Db db = new Db())
+            {
+                var ids = db.Favorites.Where(x=>x.UserId==us).Select(x=>x.SongId);
+                var res = db.Songs.Where(x => ids.Any(t => t == x.Id));
+                return res.ToList();
+            }
+        }
+        public static List<Song> GetPopularSongs(int us)
+        {
+            using (Db db = new Db())
+            {
+                var num =   db.Favorites.Count() < 20 ? db.Favorites.Count() : 20;
+                var ids = db.Favorites.GroupBy(x => x.SongId).OrderByDescending(x=>x.Count()).Take(num).Select(x=>x.Key);
+                List<Song> s = new List<Song>();
+                foreach (var a in ids)
+                    s.Add(db.Songs.FirstOrDefault(x => x.Id == a));
+                return s;
             }
 
         }

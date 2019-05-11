@@ -41,8 +41,8 @@
                     <ColumnDefinition Width="50"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Grid.Column="1" FontSize="17" VerticalAlignment="Center" Foreground="#888888" Padding="5">Rating </TextBlock>
-                
+                <TextBlock x:Name="title1" Grid.Column="1" FontSize="17" VerticalAlignment="Center" Foreground="#888888" Padding="5">Populars</TextBlock>
+
 
                 
                 <Button Click="show_description" Grid.Column="7" Height="35" Width="35" Background="{x:Null}" BorderBrush="{x:Null}"  Style="{DynamicResource MaterialDesignFloatingActionButton}" >
@@ -50,7 +50,9 @@
                 </Button>
             </Grid>
         </materialDesign:Card>
-        
+        <materialDesign:Card  x:Name="search_card" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,0,-310,0" Panel.ZIndex="100" Width="200" FontSize="18" BorderThickness="3,3,3,3" Grid.Row="1" Grid.ColumnSpan="5">
+            <TextBox x:Name="searchBox" BorderThickness="3,3,3,3" TextChanged="TextBox_TextChanged"></TextBox>
+        </materialDesign:Card>
         <ScrollViewer Grid.ColumnSpan="2" ScrollViewer.VerticalScrollBarVisibility="Auto" Grid.Row="1" Grid.RowSpan="2" Padding="1">
             <ListBox x:Name="list" >
                 <ListBox.ItemContainerStyle>
@@ -93,12 +95,12 @@
                                     <ColumnDefinition Width="50"></ColumnDefinition>
                                     <ColumnDefinition Width="50"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
-                                <Button Click="playingSong" DataContext="{Binding id}" Grid.Column="0" Height="32" Width="32" Background="#153a42" Style="{DynamicResource MaterialDesignFloatingActionButton}" BorderBrush="#153a42">
+                                <Button Click="playingSong" DataContext="{Binding Id}" Grid.Column="0" Height="32" Width="32" Background="#153a42" Style="{DynamicResource MaterialDesignFloatingActionButton}" BorderBrush="#153a42">
                                     <materialDesign:PackIcon Kind="Play"></materialDesign:PackIcon>
                                 </Button>
                                 <TextBlock  Grid.Column="1" VerticalAlignment="Center"  FontSize="18" Padding="10 ,0,0,0" Text="{Binding fullName}"></TextBlock>
-                                <TextBlock Grid.Column="2" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding Duration}"></TextBlock>
-                                <Button Click="descriptionSong" DataContext="{Binding id}" Grid.Column="3" Height="30" Width="30" Background="#dcdcdc" BorderBrush="#dcdcdc" Style="{DynamicResource MaterialDesignFloatingActionButton}">
+                                <TextBlock Grid.Column="2" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding FullDuration}"></TextBlock>
+                                <Button Click="descriptionSong" DataContext="{Binding Id}" Grid.Column="3" Height="30" Width="30" Background="#dcdcdc" BorderBrush="#dcdcdc" Style="{DynamicResource MaterialDesignFloatingActionButton}">
                                     <materialDesign:PackIcon Kind="MusicBoxOutline" Foreground="#153a42"></materialDesign:PackIcon>
                                 </Button>
                             </Grid>

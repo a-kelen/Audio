@@ -61,7 +61,7 @@ namespace Audio
                
                 db.Albums.Add(alb);
                 db.SaveChanges();
-             //   MessageBox.Show(db.Albums.FirstOrDefault().Name);
+            
             }
         }
         public static Album find(string sms)
@@ -88,6 +88,25 @@ namespace Audio
                 return res.ToList();
             }
 
+        }
+        public static void setDefaultForUser(Album a, User u)
+        {
+            using(Db db = new Db())
+            {
+                AlbumDefault albumDefault = db.AlbumDefaults.FirstOrDefault(x=>x.UserId ==u.Id);
+                if (albumDefault==null)
+                {
+                    albumDefault = new AlbumDefault { UserId = u.Id, AlbumId = a.Id };
+                    db.AlbumDefaults.Add(albumDefault);
+                    db.SaveChangesAsync();
+                }else
+                {
+                    albumDefault.AlbumId = a.Id;
+                    db.AlbumDefaults.Update(albumDefault);
+                    db.SaveChangesAsync();
+                }
+
+            }
         }
     }
 }
