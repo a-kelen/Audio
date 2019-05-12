@@ -247,6 +247,7 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="iDevSong.cs" />
+    <Compile Include="iStrategy.cs" />
     <Compile Include="Main.xaml.cs">
       <DependentUpon>Main.xaml</DependentUpon>
     </Compile>
@@ -254,9 +255,11 @@
     <Compile Include="Mstast.xaml.cs">
       <DependentUpon>Mstast.xaml</DependentUpon>
     </Compile>
+    <Compile Include="NormalSong.cs" />
     <Compile Include="Page2.xaml.cs">
       <DependentUpon>Page2.xaml</DependentUpon>
     </Compile>
+    <Compile Include="RandomSong.cs" />
     <Compile Include="Rating.xaml.cs">
       <DependentUpon>Rating.xaml</DependentUpon>
     </Compile>
