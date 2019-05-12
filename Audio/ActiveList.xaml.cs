@@ -18,6 +18,7 @@ using System.IO;
 
 namespace Audio
 {
+    public delegate void player(Song s);
     /// <summary>
     /// Interaction logic for ActiveList.xaml
     /// </summary>
@@ -28,23 +29,23 @@ namespace Audio
             InitializeComponent();
             Song.addedSong += addInList;
             songs = new ObservableCollection<Song>();
-            foreach(Song a in Song.GetSongs(2))
+            foreach (Song a in Song.GetSongs(2))
             {
                 songs.Add(a);
-                
+
             }
             list.ItemsSource = songs;
-            if(songs.Count!=0)
+            if (songs.Count != 0)
             {
                 Album al = Album.Find(songs[0].AlbumId);
                 title1.Text = al.Name;
-                title2.Text = al.Duration+"";
+                title2.Text = al.Duration + "";
                 User u1 = User.findID(al.UserId);
                 title3.Text = u1.Login;
             }
         }
         public ObservableCollection<Song> songs;
-        public delegate void player(Song s);
+
         public event player PlayS;
         int indexActive = 0;
 
@@ -52,7 +53,7 @@ namespace Audio
         public void refreshAlbum(Album al)
         {
             songs.Clear();
-            
+
             foreach (Song a in Song.GetSongs(al.Id))
             {
                 songs.Add(a);
@@ -61,7 +62,7 @@ namespace Audio
             list.ItemsSource = songs;
             if (songs.Count != 0)
             {
-               
+
                 title1.Text = al.Name;
                 title2.Text = al.FullDuration;
                 User u1 = User.findID(al.UserId);
@@ -85,18 +86,18 @@ namespace Audio
             bitmap.EndInit();
             des_title.Text = file.Tag.Title;
             des_Artist.Text = file.Tag.Artists[0];
-            des_duration.Text = file.Properties.Duration.Minutes+":"+ file.Properties.Duration.Seconds;
+            des_duration.Text = file.Properties.Duration.Minutes + ":" + file.Properties.Duration.Seconds;
             des_genre.Text = file.Tag.Genres[0];
             des_album.Text = file.Tag.Album;
-            des_year.Text = ""+file.Tag.Year;
+            des_year.Text = "" + file.Tag.Year;
             des_image.Source = bitmap;
 
         }
-        private void playingSong(object s,RoutedEventArgs e)
+        private void playingSong(object s, RoutedEventArgs e)
         {
             Button bt = (Button)s;
             int ID = (int)bt.DataContext;
-            
+
             var res = from a in songs where a.Id == ID select a;
             Song ss = res.ToList<Song>()[0];
             indexActive = songs.IndexOf(ss);
@@ -104,7 +105,7 @@ namespace Audio
         }
         public void eventPlayPrev(object s, EventArgs e)
         {
-            if(indexActive>0)
+            if (indexActive > 0)
             {
                 indexActive--;
                 PlayS(songs[indexActive]);
@@ -112,31 +113,16 @@ namespace Audio
         }
         public bool isRepeter = false;
         public bool isRandom = false;
+        public void setStrategy(iStrategy strategy)
+        {
+            this.strategy = strategy;
+        }
+        iStrategy strategy = new NormalSong();
         public void eventPlayNext(object s, EventArgs e)
         {
-            if (isRandom)
-            {
-                Random rand = new Random();
-                indexActive = rand.Next(0, songs.Count);
-                PlayS(songs[indexActive]);
-
-            }else if (indexActive < songs.Count-1)
-            {
-                if(isRandom)
-                {
-                    Random rand = new Random();
-                    indexActive = rand.Next(0, songs.Count);
-                    PlayS(songs[indexActive]);
-
-                }
-                else
-                {
-                    if (isRepeter)
-                        indexActive--;
-                    indexActive++;
-                    PlayS(songs[indexActive]);
-                }
-            }
+            if(strategy!=null)
+            strategy.eventPlayPrev(songs, indexActive, isRepeter, PlayS);
+            
         }
         private void show_search(object sender, RoutedEventArgs e)
         {
@@ -180,6 +166,7 @@ namespace Audio
             if(s.AlbumId==songs[0].AlbumId)
             songs.Add(s);
         }
+        
         bool sortTag = false; 
         public void sortList(object s, RoutedEventArgs e)
         {
