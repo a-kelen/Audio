@@ -78,6 +78,8 @@ namespace Audio
             if(create_abl_name.Text != "" && create_abl_name.Text.Length > 1)
             {
                 Album a = new Album(create_abl_name.Text,_user,st,0);
+                AlbumBuilder builder = new  AlbumBuilder();
+                a = builder.setDuration(0).setName(create_abl_name.Text).setStatus(st).setUser(_user.Id).Get();
                 if (Album.find(create_abl_name.Text) == null)
                 {
                     Album.AddAlbum(a);

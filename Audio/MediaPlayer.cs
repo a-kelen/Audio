@@ -20,7 +20,7 @@ namespace Audio
         public event refr refresh;
         public void mediaPlay(Song s)
         {
-
+            
             mdp.Open(new Uri(s.Path, UriKind.Absolute));
             mdp.Play();
             isPlay = true;

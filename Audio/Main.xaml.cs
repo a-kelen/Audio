@@ -253,14 +253,16 @@ namespace Audio
         private void RandomSong(object sender, RoutedEventArgs e)
         {
             activeList.isRandom = !activeList.isRandom;
-
+           
             if (activeList.isRandom)
             {
                 random.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(30, 255, 255, 255));
+                activeList.setStrategy(new RandomSong());
             }
             else
             {
                 random.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(0, 255, 255, 255));
+                activeList.setStrategy(new NormalSong());
             }
 
         }
