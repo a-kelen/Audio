@@ -145,7 +145,7 @@
                     <TextBlock x:Name="des_year" Foreground="#808080" FontSize="15" Padding="5,7">tet</TextBlock>
                     <TextBlock x:Name="des_album" Foreground="#808080" FontSize="15" Padding="5,7">tet</TextBlock>
                     <TextBlock x:Name="des_duration" Foreground="#808080" FontSize="15" Padding="5,7">tet</TextBlock>
-                    <Button x:Name="changeSongContent" Width="130" Margin="10" Background="#707070" Foreground="White" HorizontalAlignment="Right">Змінити</Button>
+                    <Button Click="changeSongContent_Click" BorderBrush="{x:Null}" x:Name="changeSongContent" Width="130" Margin="10" Background="#707070" Foreground="White" HorizontalAlignment="Right">Змінити</Button>
                 </StackPanel>
             </Grid>
         </materialDesign:Card>

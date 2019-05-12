@@ -35,6 +35,10 @@ namespace Audio
             Album a = new AlbumBuilder();
             return this;
         }
+        public Album Get()
+        {
+            return this.album;
+        }
         public static implicit operator Album(AlbumBuilder albumBuilder)
         {
             return albumBuilder.album;
